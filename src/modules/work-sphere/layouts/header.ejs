@@ -1,0 +1,31 @@
+<%
+  const org = locals.company || locals.sender || locals.organization || {};
+  const orgName = org.name || org.organization || 'Work Sphere Systems';
+  const badge = locals.letterType || locals.docBadge || 'Work Sphere';
+  const refNum = locals.referenceNumber || '';
+  const docDate = locals.date || locals.payDate || '';
+%>
+<header class="ws-header">
+  <div class="ws-brand-block">
+    <% if (org.logo) { %>
+      <img src="<%= helpers.imageToDataUri(org.logo) %>" alt="<%= orgName %>" class="ws-logo" />
+    <% } %>
+    <div>
+      <div class="ws-brand-name"><%= orgName %></div>
+      <div class="ws-brand-meta">
+        <% if (org.address) { %><div><%= org.address %></div><% } %>
+        <% if (org.email) { %><div><%= org.email %></div><% } %>
+        <% if (org.contact) { %><div><%= org.contact %></div><% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-header-right">
+    <div class="ws-badge"><%= badge %></div>
+    <div class="ws-ref-meta">
+      <% if (refNum) { %><div><strong>Ref:</strong> <%= refNum %></div><% } %>
+      <% if (locals.payPeriod) { %><div><strong>Pay Period:</strong> <%= locals.payPeriod %></div><% } %>
+      <% if (docDate) { %><div><strong>Date:</strong> <%= helpers.formatDate(docDate) %></div><% } %>
+    </div>
+  </div>
+</header>

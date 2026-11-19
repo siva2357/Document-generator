@@ -1,0 +1,125 @@
+<%
+  const _currency = locals.currency || 'USD';
+  const _items = Array.isArray(locals.items) ? locals.items : [];
+  const _subtotal = locals.subtotal !== undefined
+    ? Number(locals.subtotal)
+    : _items.reduce((sum, item) => sum + Number(item.qty || 1) * Number(item.rate || 0), 0);
+  const _taxRate = Number(locals.taxRate || 0);
+  const _taxAmount = locals.taxAmount !== undefined ? Number(locals.taxAmount) : (_subtotal * _taxRate) / 100;
+  const _discount = Number(locals.discount || 0);
+  const _total = locals.total !== undefined ? Number(locals.total) : _subtotal + _taxAmount - _discount;
+%>
+<style>
+  .inv-addresses {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .inv-box {
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 9pt;
+    color: var(--text-secondary);
+  }
+  .inv-box-title {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--primary);
+    margin-bottom: 5px;
+  }
+  .inv-totals {
+    width: 280px;
+    margin-left: auto;
+    margin-top: 12px;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  .inv-totals td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .inv-totals tr.grand-total td {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-top: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+  }
+</style>
+
+<div class="inv-addresses avoid-break">
+  <div class="inv-box">
+    <div class="inv-box-title">Bill To</div>
+    <div style="font-weight: 700; color: var(--text); margin-bottom: 2px;"><%= locals.billTo?.name || '' %></div>
+    <% if (locals.billTo?.company) { %><div><%= locals.billTo.company %></div><% } %>
+    <% if (locals.billTo?.address) { %><div><%= locals.billTo.address %></div><% } %>
+    <% if (locals.billTo?.email) { %><div><%= locals.billTo.email %></div><% } %>
+  </div>
+  <div class="inv-box">
+    <div class="inv-box-title">Contract / Engagement Details</div>
+    <% if (locals.contractRef) { %><div><strong>Contract Ref:</strong> <%= locals.contractRef %></div><% } %>
+    <% if (locals.billingPeriod) { %><div><strong>Billing Period:</strong> <%= locals.billingPeriod %></div><% } %>
+    <% if (locals.paymentTerms) { %><div><strong>Terms:</strong> <%= locals.paymentTerms %></div><% } %>
+  </div>
+</div>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th class="text-right">Qty / Hrs</th>
+      <th class="text-right">Rate</th>
+      <th class="text-right">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _items.forEach((item) => { %>
+      <% const lineTotal = item.amount !== undefined ? Number(item.amount) : Number(item.qty || 1) * Number(item.rate || 0); %>
+      <tr>
+        <td>
+          <strong><%= item.description %></strong>
+          <% if (item.notes) { %><div style="font-size: 8.2pt; color: var(--muted);"><%= item.notes %></div><% } %>
+        </td>
+        <td class="text-right"><%= item.qty ?? 1 %></td>
+        <td class="text-right"><%= helpers.formatCurrency(item.rate, _currency) %></td>
+        <td class="text-right"><%= helpers.formatCurrency(lineTotal, _currency) %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<table class="inv-totals avoid-break">
+  <tr>
+    <td>Subtotal</td>
+    <td class="text-right"><%= helpers.formatCurrency(_subtotal, _currency) %></td>
+  </tr>
+  <% if (_discount > 0) { %>
+    <tr>
+      <td>Discount</td>
+      <td class="text-right">-<%= helpers.formatCurrency(_discount, _currency) %></td>
+    </tr>
+  <% } %>
+  <% if (_taxAmount > 0 || _taxRate > 0) { %>
+    <tr>
+      <td>Tax (<%= _taxRate %>%)</td>
+      <td class="text-right"><%= helpers.formatCurrency(_taxAmount, _currency) %></td>
+    </tr>
+  <% } %>
+  <tr class="grand-total">
+    <td>Total Due</td>
+    <td class="text-right"><%= helpers.formatCurrency(_total, _currency) %></td>
+  </tr>
+</table>
+
+<% if (locals.paymentInstructions) { %>
+  <div class="callout avoid-break" style="margin-top: 22px;">
+    <div class="callout-title">Payment Instructions</div>
+    <p class="callout-body"><%- helpers.nl2br(locals.paymentInstructions) %></p>
+  </div>
+<% } %>

@@ -1,0 +1,81 @@
+<%
+  const _currency = locals.currency || 'USD';
+  const _transactions = Array.isArray(locals.transactions) ? locals.transactions : [];
+%>
+<section class="doc-title-block">
+  <h1 class="doc-title"><%= locals.title || 'Account Statement' %></h1>
+  <% if (locals.subtitle) { %>
+    <p class="doc-subtitle"><%= locals.subtitle %></p>
+  <% } %>
+</section>
+
+<% if (locals.account) { %>
+  <section class="meta-grid avoid-break">
+    <div>
+      <div class="meta-item-label">Account Holder</div>
+      <div class="meta-item-value"><%= locals.account.name || '' %></div>
+    </div>
+    <div>
+      <div class="meta-item-label">Account ID</div>
+      <div class="meta-item-value"><%= locals.account.id || '' %></div>
+    </div>
+    <div>
+      <div class="meta-item-label">Email</div>
+      <div class="meta-item-value"><%= locals.account.email || '' %></div>
+    </div>
+  </section>
+<% } %>
+
+<section class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Opening Balance</div>
+    <div class="kpi-value"><%= helpers.formatCurrency(locals.openingBalance ?? 0, _currency) %></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Invoiced / Credits</div>
+    <div class="kpi-value"><%= helpers.formatCurrency(locals.totalCredits ?? 0, _currency) %></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Total Paid / Debits</div>
+    <div class="kpi-value"><%= helpers.formatCurrency(locals.totalDebits ?? 0, _currency) %></div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Closing Balance</div>
+    <div class="kpi-value"><%= helpers.formatCurrency(locals.closingBalance ?? 0, _currency) %></div>
+  </div>
+</section>
+
+<section class="doc-section">
+  <h2 class="section-heading">Transaction Ledger</h2>
+  <table class="doc-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Reference</th>
+        <th>Description</th>
+        <th class="text-right">Debit</th>
+        <th class="text-right">Credit</th>
+        <th class="text-right">Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% _transactions.forEach((tx) => { %>
+        <tr>
+          <td><%= helpers.formatDate(tx.date) %></td>
+          <td><%= tx.reference || '' %></td>
+          <td><%= tx.description || '' %></td>
+          <td class="text-right"><%= tx.debit ? helpers.formatCurrency(tx.debit, _currency) : '-' %></td>
+          <td class="text-right"><%= tx.credit ? helpers.formatCurrency(tx.credit, _currency) : '-' %></td>
+          <td class="text-right"><strong><%= helpers.formatCurrency(tx.balance ?? 0, _currency) %></strong></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+
+<% if (locals.notes) { %>
+  <div class="callout avoid-break">
+    <div class="callout-title">Statement Notes</div>
+    <p class="callout-body"><%- helpers.nl2br(locals.notes) %></p>
+  </div>
+<% } %>

@@ -1,0 +1,28 @@
+{
+  "letterType": "Experience & Relieving Letter",
+  "referenceNumber": "WS-HR-2026-508",
+  "date": "2026-11-19",
+  "sender": {
+    "organization": "Work Sphere Systems Pvt. Ltd.",
+    "address": "Tower B, Cyber Gateway, Hyderabad, TS 500081",
+    "contact": "hr@worksphere.example | +91 40 2345 6789"
+  },
+  "recipient": {
+    "name": "Deepika Rao",
+    "designation": "Senior QA Engineer",
+    "employeeId": "EMP-0742",
+    "address": "Hyderabad, Telangana"
+  },
+  "subject": "Experience and Relieving Confirmation",
+  "salutation": "Dear Deepika,",
+  "paragraphs": [
+    "This is to certify that Ms. Deepika Rao (Employee ID: EMP-0742) was employed with Work Sphere Systems Pvt. Ltd. from March 10, 2023 to November 19, 2026. At the time of relieving, she held the position of Senior QA Engineer in the Quality Engineering department.",
+    "During her tenure with us, she demonstrated strong technical capability, ownership, and professionalism across multiple product releases.",
+    "We confirm that all handover formalities and full & final settlement clearance have been completed. We wish her every success in her future endeavors."
+  ],
+  "closing": "Warm regards,",
+  "signatory": {
+    "name": "Kavitha Menon",
+    "role": "VP of People Operations"
+  }
+}

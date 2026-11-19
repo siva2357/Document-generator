@@ -1,0 +1,58 @@
+<%
+  const _paragraphs = Array.isArray(locals.paragraphs) ? locals.paragraphs : (locals.body ? [locals.body] : []);
+  const _bulletPoints = Array.isArray(locals.bulletPoints) ? locals.bulletPoints : [];
+%>
+<style>
+  .ltr-subject {
+    padding: 8px 12px;
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0;
+  }
+  .ltr-content p {
+    color: var(--text-secondary);
+    margin-bottom: 11px;
+    text-align: justify;
+  }
+</style>
+
+<% if (locals.recipient) { %>
+  <div style="margin-bottom: 16px; font-size: 9.8pt; line-height: 1.5;">
+    <div><strong>To,</strong></div>
+    <div><strong><%= locals.recipient.name || '' %></strong></div>
+    <% if (locals.recipient.designation) { %><div><%= locals.recipient.designation %></div><% } %>
+    <% if (locals.recipient.employeeId) { %><div>Employee ID: <%= locals.recipient.employeeId %></div><% } %>
+    <% if (locals.recipient.address) { %><div><%= locals.recipient.address %></div><% } %>
+  </div>
+<% } %>
+
+<% if (locals.subject) { %>
+  <div class="ltr-subject">Subject: <%= locals.subject %></div>
+<% } %>
+
+<div class="ltr-content">
+  <p><%= locals.salutation || ('Dear ' + (locals.recipient?.name || 'Sir/Madam') + ',') %></p>
+
+  <% _paragraphs.forEach((p) => { %>
+    <p><%- helpers.nl2br(p) %></p>
+  <% }) %>
+
+  <% if (_bulletPoints.length > 0) { %>
+    <ul class="doc-list">
+      <% _bulletPoints.forEach((pt) => { %>
+        <li><%- helpers.nl2br(pt) %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <p style="margin-top: 16px;"><%= locals.closing || 'Sincerely,' %></p>
+</div>
+
+<div class="avoid-break" style="margin-top: 24px; max-width: 240px;">
+  <div class="signature-box"></div>
+  <div class="signature-name"><%= locals.signatory?.name || '' %></div>
+  <% if (locals.signatory?.role) { %><div class="signature-role"><%= locals.signatory.role %></div><% } %>
+  <% if (locals.sender?.organization) { %><div class="signature-role"><%= locals.sender.organization %></div><% } %>
+</div>

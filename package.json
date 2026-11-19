@@ -1,0 +1,30 @@
+{
+  "name": "document-generator",
+  "version": "1.0.0",
+  "description": "Common modular PDF document generator powered by EJS and Puppeteer",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./core": "./src/core/documentGenerator.js",
+    "./registry": "./src/core/moduleRegistry.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "pdf": "node src/cli.js",
+    "generate": "node src/cli.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [
+    "pdf",
+    "document-generator",
+    "ejs",
+    "puppeteer",
+    "reports",
+    "letters"
+  ],
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "puppeteer": "^24.0.0"
+  }
+}

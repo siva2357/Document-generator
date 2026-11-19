@@ -1,0 +1,35 @@
+<%
+  const org = locals.from || locals.organization || {};
+  const orgName = org.name || 'Talent Hub Technologies';
+  const badge = locals.docBadge || 'Talent Hub';
+  const refNum = locals.contractNumber || locals.invoiceNumber || locals.statementNumber || locals.referenceNumber || '';
+  const docDate = locals.issueDate || locals.effectiveDate || locals.statementDate || locals.date || '';
+  const dueOrEnd = locals.dueDate || locals.endDate || '';
+  const dueOrEndLabel = locals.dueDate ? 'Due Date' : 'End Date';
+%>
+<header class="th-header">
+  <div class="th-brand-block">
+    <% if (org.logo) { %>
+      <img src="<%= helpers.imageToDataUri(org.logo) %>" alt="<%= orgName %>" class="th-logo" />
+    <% } %>
+    <div>
+      <div class="th-brand-name"><%= orgName %></div>
+      <div class="th-brand-meta">
+        <% if (org.address) { %><div><%= org.address %></div><% } %>
+        <% if (org.email) { %><div><%= org.email %></div><% } %>
+        <% if (org.taxId) { %><div>Tax ID: <%= org.taxId %></div><% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="th-header-right">
+    <div class="th-badge"><%= badge %></div>
+    <div class="th-ref-meta">
+      <% if (refNum) { %><div><strong>Ref #:</strong> <%= refNum %></div><% } %>
+      <% if (docDate) { %><div><strong>Date:</strong> <%= helpers.formatDate(docDate) %></div><% } %>
+      <% if (dueOrEnd) { %><div><strong><%= dueOrEndLabel %>:</strong> <%= helpers.formatDate(dueOrEnd) %></div><% } %>
+      <% if (locals.period) { %><div><strong>Period:</strong> <%= locals.period %></div><% } %>
+      <% if (locals.status) { %><div><strong>Status:</strong> <%= locals.status %></div><% } %>
+    </div>
+  </div>
+</header>

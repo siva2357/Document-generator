@@ -1,0 +1,29 @@
+{
+  "title": "Talent Hub — Contract Portfolio Report",
+  "subtitle": "Active Contractor Engagements, Renewals & Spend Summary",
+  "metadata": [
+    { "label": "Application", "value": "Talent Hub" },
+    { "label": "Prepared By", "value": "Vendor & Contracts Desk" },
+    { "label": "Report Date", "value": "Nov 19, 2026" }
+  ],
+  "summary": "Consolidated status of active talent contracts, upcoming renewal windows, and quarterly billing utilization across client accounts.",
+  "metrics": [
+    { "label": "Active Contracts", "value": "28", "subtext": "6 clients" },
+    { "label": "Monthly Run Rate", "value": "$184,000", "subtext": "On budget" },
+    { "label": "Renewals Due (30d)", "value": "4", "subtext": "In negotiation" }
+  ],
+  "contracts": [
+    { "id": "TH-CON-104", "talent": "Karthik Subramanian", "scope": "Senior Node.js Engineer", "status": "Active", "value": "$45,000" },
+    { "id": "TH-CON-109", "talent": "Neha Deshmukh", "scope": "Lead UI/UX Designer", "status": "Active", "value": "$36,000" },
+    { "id": "TH-CON-112", "talent": "Vikram Rao", "scope": "Cloud Architect", "status": "Renewal Due", "value": "$54,000" }
+  ],
+  "sections": [
+    {
+      "heading": "Recommendations",
+      "items": [
+        "Initiate renewal addendum for TH-CON-112 at least 15 days prior to expiry.",
+        "Standardize Net-15 billing terms across all newly onboarded contracts."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<footer class="ws-footer">
+  <div>
+    <strong><%= (locals.company && locals.company.name) || (locals.sender && locals.sender.organization) || 'Work Sphere Systems' %></strong>
+    <span> &bull; People &amp; Workplace Operations</span>
+  </div>
+  <div class="ws-footer-right">
+    <%= locals.footerNote || 'Confidential HR Document — Work Sphere' %>
+  </div>
+</footer>

@@ -1,0 +1,88 @@
+<%
+  const _metadata = Array.isArray(locals.metadata) ? locals.metadata : [];
+  const _metrics = Array.isArray(locals.metrics) ? locals.metrics : [];
+  const _contracts = Array.isArray(locals.contracts) ? locals.contracts : [];
+  const _sections = Array.isArray(locals.sections) ? locals.sections : [];
+%>
+<section class="doc-title-block">
+  <h1 class="doc-title"><%= locals.title || 'Contract Performance Report' %></h1>
+  <% if (locals.subtitle) { %>
+    <p class="doc-subtitle"><%= locals.subtitle %></p>
+  <% } %>
+</section>
+
+<% if (_metadata.length > 0) { %>
+  <section class="meta-grid avoid-break">
+    <% _metadata.forEach((item) => { %>
+      <div>
+        <div class="meta-item-label"><%= item.label %></div>
+        <div class="meta-item-value"><%= item.value %></div>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
+<% if (locals.summary) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Executive Summary</h2>
+    <p><%- helpers.nl2br(locals.summary) %></p>
+  </section>
+<% } %>
+
+<% if (_metrics.length > 0) { %>
+  <section class="kpi-grid">
+    <% _metrics.forEach((metric) => { %>
+      <div class="kpi-card">
+        <div class="kpi-label"><%= metric.label %></div>
+        <div class="kpi-value"><%= metric.value %></div>
+        <% if (metric.subtext) { %>
+          <div class="kpi-subtext"><%= metric.subtext %></div>
+        <% } %>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
+<% if (_contracts.length > 0) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Contract Portfolio Breakdown</h2>
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>Contract ID</th>
+          <th>Talent / Vendor</th>
+          <th>Role / Scope</th>
+          <th class="text-center">Status</th>
+          <th class="text-right">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% _contracts.forEach((c) => { %>
+          <tr>
+            <td><strong><%= c.id %></strong></td>
+            <td><%= c.talent %></td>
+            <td><%= c.scope %></td>
+            <td class="text-center"><%= c.status %></td>
+            <td class="text-right"><%= c.value %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+<% } %>
+
+<% if (_sections.length > 0) { %>
+  <% _sections.forEach((section) => { %>
+    <section class="doc-section">
+      <% if (section.heading) { %><h2 class="section-heading"><%= section.heading %></h2><% } %>
+      <% if (section.content) { %><p><%- helpers.nl2br(section.content) %></p><% } %>
+      <% if (Array.isArray(section.items) && section.items.length > 0) { %>
+        <ul class="doc-list">
+          <% section.items.forEach((item) => { %>
+            <li><%- helpers.nl2br(item) %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </section>
+  <% }) %>
+<% } %>

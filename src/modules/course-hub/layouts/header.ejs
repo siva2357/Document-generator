@@ -1,0 +1,30 @@
+<%
+  const academy = locals.academy || locals.organization || {};
+  const academyName = academy.name || locals.academyName || 'Course Hub Academy';
+  const badge = locals.docBadge || 'Course Hub';
+  const refNum = locals.invoiceNumber || locals.certificateId || locals.referenceNumber || '';
+  const docDate = locals.issueDate || locals.completionDate || locals.date || '';
+%>
+<header class="ch-header">
+  <div class="ch-brand-block">
+    <% if (academy.logo) { %>
+      <img src="<%= helpers.imageToDataUri(academy.logo) %>" alt="<%= academyName %>" class="ch-logo" />
+    <% } %>
+    <div>
+      <div class="ch-brand-name"><%= academyName %></div>
+      <div class="ch-brand-meta">
+        <% if (academy.address) { %><div><%= academy.address %></div><% } %>
+        <% if (academy.email) { %><div><%= academy.email %></div><% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-header-right">
+    <div class="ch-badge"><%= badge %></div>
+    <div class="ch-ref-meta">
+      <% if (refNum) { %><div><strong>Ref #:</strong> <%= refNum %></div><% } %>
+      <% if (docDate) { %><div><strong>Date:</strong> <%= helpers.formatDate(docDate) %></div><% } %>
+      <% if (locals.paymentStatus) { %><div><strong>Status:</strong> <%= locals.paymentStatus %></div><% } %>
+    </div>
+  </div>
+</header>

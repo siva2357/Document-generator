@@ -1,0 +1,23 @@
+{
+  "title": "Talent Hub — Account Statement",
+  "subtitle": "Monthly Billing & Payment Summary",
+  "statementNumber": "TH-STMT-2026-11",
+  "statementDate": "2026-11-19",
+  "period": "Oct 01 – Nov 19, 2026",
+  "currency": "USD",
+  "account": {
+    "name": "Northstar Cloud Corp.",
+    "id": "ACC-NS-4021",
+    "email": "ap@northstar.example"
+  },
+  "openingBalance": 2500,
+  "totalCredits": 12400,
+  "totalDebits": 8000,
+  "closingBalance": 6900,
+  "transactions": [
+    { "date": "2026-10-05", "reference": "TH-INV-2026-071", "description": "Contractor Billing — Sep Cycle", "credit": 5500, "debit": 0, "balance": 8000 },
+    { "date": "2026-10-18", "reference": "PAY-88310", "description": "Wire Payment Received", "credit": 0, "debit": 8000, "balance": 0 },
+    { "date": "2026-11-19", "reference": "TH-INV-2026-089", "description": "Contractor Billing — Nov Cycle", "credit": 6900, "debit": 0, "balance": 6900 }
+  ],
+  "notes": "Please remit the closing balance before the invoice due date. Contact billing@talenthub.example for any discrepancies."
+}

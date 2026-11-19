@@ -1,0 +1,130 @@
+<%
+  const _currency = locals.currency || 'USD';
+  const _compensation = Array.isArray(locals.compensation) ? locals.compensation : [];
+  const _benefits = Array.isArray(locals.benefits) ? locals.benefits : [];
+%>
+<style>
+  .letter-body p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .acceptance-box {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    break-inside: avoid;
+  }
+</style>
+
+<div style="margin-bottom: 16px; font-size: 9.8pt;">
+  <div><strong>To:</strong> <%= locals.candidate?.name || '' %></div>
+  <% if (locals.candidate?.address) { %><div><%= locals.candidate.address %></div><% } %>
+  <% if (locals.candidate?.email) { %><div><%= locals.candidate.email %></div><% } %>
+</div>
+
+<h1 class="doc-title" style="font-size: 15pt; margin-bottom: 14px;">
+  <%= locals.title || 'Offer of Employment' %>
+</h1>
+
+<div class="letter-body">
+  <p>Dear <strong><%= locals.candidate?.name || 'Candidate' %></strong>,</p>
+  <p>
+    We are pleased to offer you the position of <strong><%= locals.role?.title || '' %></strong>
+    <% if (locals.role?.department) { %>in the <strong><%= locals.role.department %></strong> department<% } %>
+    at <strong><%= (locals.company?.name || 'our organization').replace(/\.$/, '') %></strong>.
+  </p>
+  <% if (locals.intro) { %>
+    <p><%- helpers.nl2br(locals.intro) %></p>
+  <% } %>
+</div>
+
+<section class="meta-grid avoid-break">
+  <div>
+    <div class="meta-item-label">Position</div>
+    <div class="meta-item-value"><%= locals.role?.title || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Start Date</div>
+    <div class="meta-item-value"><%= locals.role?.startDate ? helpers.formatDate(locals.role.startDate) : '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Work Location</div>
+    <div class="meta-item-value"><%= locals.role?.location || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Reporting Manager</div>
+    <div class="meta-item-value"><%= locals.role?.manager || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Employment Type</div>
+    <div class="meta-item-value"><%= locals.role?.employmentType || 'Full-Time' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Offer Valid Until</div>
+    <div class="meta-item-value"><%= locals.validUntil ? helpers.formatDate(locals.validUntil) : '' %></div>
+  </div>
+</section>
+
+<% if (_compensation.length > 0) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Compensation Breakdown</h2>
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Frequency</th>
+          <th class="text-right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% _compensation.forEach((row) => { %>
+          <tr>
+            <td><%= row.label %></td>
+            <td><%= row.frequency || 'Annual' %></td>
+            <td class="text-right"><%= typeof row.amount === 'number' ? helpers.formatCurrency(row.amount, _currency) : row.amount %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+      <% if (locals.totalAnnualCompensation !== undefined) { %>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total Annual Compensation</td>
+            <td class="text-right"><%= typeof locals.totalAnnualCompensation === 'number' ? helpers.formatCurrency(locals.totalAnnualCompensation, _currency) : locals.totalAnnualCompensation %></td>
+          </tr>
+        </tfoot>
+      <% } %>
+    </table>
+  </section>
+<% } %>
+
+<% if (_benefits.length > 0) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Benefits &amp; Key Terms</h2>
+    <ul class="doc-list">
+      <% _benefits.forEach((b) => { %>
+        <li><%- helpers.nl2br(b) %></li>
+      <% }) %>
+    </ul>
+  </section>
+<% } %>
+
+<div class="acceptance-box">
+  <div style="font-weight: 700; margin-bottom: 6px; color: var(--text);">Offer Acceptance</div>
+  <p style="font-size: 9pt; color: var(--text-secondary); margin-bottom: 12px;">
+    Please sign below to confirm your acceptance of this employment offer and its terms.
+  </p>
+  <section class="signatures-grid" style="margin-top: 8px;">
+    <div>
+      <div class="signature-box"></div>
+      <div class="signature-name"><%= locals.signatory?.name || '' %></div>
+      <div class="signature-role"><%= locals.signatory?.role || 'Authorized Signatory' %></div>
+    </div>
+    <div>
+      <div class="signature-box"></div>
+      <div class="signature-name"><%= locals.candidate?.name || 'Candidate Signature' %></div>
+      <div class="signature-role">Candidate Acceptance &amp; Date</div>
+    </div>
+  </section>
+</div>

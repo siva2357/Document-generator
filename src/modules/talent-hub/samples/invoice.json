@@ -1,0 +1,29 @@
+{
+  "invoiceNumber": "TH-INV-2026-089",
+  "issueDate": "2026-11-19",
+  "dueDate": "2026-12-04",
+  "status": "Unpaid",
+  "currency": "USD",
+  "from": {
+    "name": "Talent Hub Staffing Inc.",
+    "address": "42 Innovation Park, Bengaluru, KA 560001",
+    "email": "billing@talenthub.example",
+    "taxId": "TAX-99102834"
+  },
+  "billTo": {
+    "name": "David Miller",
+    "company": "Northstar Cloud Corp.",
+    "address": "500 Market St, San Francisco, CA 94105",
+    "email": "ap@northstar.example"
+  },
+  "contractRef": "TH-CON-2026-104",
+  "billingPeriod": "Nov 01 – Nov 15, 2026",
+  "paymentTerms": "Net 15 Days",
+  "items": [
+    { "description": "Senior Node.js Engineering Consulting", "notes": "Sprint 14 & 15 delivery", "qty": 80, "rate": 75 },
+    { "description": "DevOps & CI/CD Setup", "notes": "Automated deployment pipeline", "qty": 12, "rate": 90 }
+  ],
+  "taxRate": 10,
+  "discount": 200,
+  "paymentInstructions": "Wire Transfer to Talent Hub Staffing Inc.\nBank: Global Commercial Bank | Routing: 021000021 | Account: 4489021134\nPlease quote Invoice # TH-INV-2026-089 in the transfer reference."
+}

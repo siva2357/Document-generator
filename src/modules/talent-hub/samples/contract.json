@@ -1,0 +1,46 @@
+{
+  "title": "Independent Contractor Agreement",
+  "subtitle": "Full Stack Engineering Consulting Engagement",
+  "contractNumber": "TH-CON-2026-104",
+  "effectiveDate": "2026-12-01",
+  "endDate": "2027-05-31",
+  "parties": [
+    {
+      "role": "Client",
+      "name": "Talent Hub Technologies Pvt. Ltd.",
+      "address": "42 Innovation Park, Bengaluru, KA 560001",
+      "email": "legal@talenthub.example",
+      "taxId": "GSTIN-29ABCDE1234F1Z5"
+    },
+    {
+      "role": "Contractor",
+      "name": "Karthik Subramanian",
+      "address": "18 Indiranagar 2nd Stage, Bengaluru, KA 560038",
+      "email": "karthik@consultant.example"
+    }
+  ],
+  "summary": "This Agreement sets out the terms under which the Contractor will provide senior software engineering services to the Client for the Talent Hub platform modernization initiative.",
+  "commercialTerms": [
+    { "label": "Engagement Type", "value": "Time & Material" },
+    { "label": "Billing Rate", "value": "$75 / hour" },
+    { "label": "Payment Cycle", "value": "Net 15 Days" }
+  ],
+  "clauses": [
+    {
+      "title": "Scope of Services",
+      "body": "The Contractor shall deliver architecture design, backend API development, and automated test coverage as defined in monthly sprint goals."
+    },
+    {
+      "title": "Confidentiality & IP Ownership",
+      "body": "All work product created during this engagement shall be the exclusive intellectual property of the Client upon full payment."
+    },
+    {
+      "title": "Termination",
+      "body": "Either party may terminate this Agreement by providing 15 days written notice to the other party."
+    }
+  ],
+  "signatures": [
+    { "name": "Ananya Sharma", "role": "VP of Talent", "organization": "Talent Hub Technologies", "date": "2026-11-19" },
+    { "name": "Karthik Subramanian", "role": "Independent Contractor", "date": "2026-11-19" }
+  ]
+}

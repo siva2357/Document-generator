@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Talent Hub Document' %></title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-soft: #eef2ff;
+      --accent: #6366f1;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --surface: #f8fafc;
+      --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      font-family: var(--font-family);
+      font-size: 10pt;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    .th-page-shell {
+      min-height: 260mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .th-main {
+      flex: 1;
+    }
+
+    /* Talent Hub Header */
+    .th-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      border-bottom: 2.5px solid var(--primary);
+    }
+
+    .th-brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .th-logo {
+      max-height: 42px;
+      max-width: 140px;
+      object-fit: contain;
+    }
+
+    .th-brand-name {
+      font-size: 15pt;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+    }
+
+    .th-brand-meta {
+      font-size: 8.5pt;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .th-header-right {
+      text-align: right;
+    }
+
+    .th-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 8.5pt;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: var(--primary);
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .th-ref-meta {
+      font-size: 8.6pt;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .th-ref-meta strong { color: var(--text-secondary); }
+
+    /* Talent Hub Footer */
+    .th-footer {
+      margin-top: 24px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 8pt;
+      color: var(--muted);
+      break-inside: avoid;
+    }
+
+    .th-footer strong { color: var(--primary); }
+    .th-footer-right { text-align: right; }
+
+    /* Shared Content Blocks */
+    .doc-title-block { margin-bottom: 16px; }
+    .doc-title { font-size: 18pt; font-weight: 700; color: var(--text); line-height: 1.25; margin-bottom: 4px; }
+    .doc-subtitle { font-size: 10pt; color: var(--muted); margin-bottom: 0; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 14px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 18px;
+    }
+    .meta-item-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 2px; }
+    .meta-item-value { font-size: 9.5pt; font-weight: 600; color: var(--text); }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .kpi-card {
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 6px;
+      background: #ffffff;
+      break-inside: avoid;
+    }
+    .kpi-label { font-size: 7.8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .kpi-value { font-size: 14.5pt; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .kpi-subtext { font-size: 8pt; color: var(--muted); margin-top: 3px; }
+
+    .doc-section { margin-bottom: 18px; }
+    .section-heading {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: var(--primary);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .doc-section p { color: var(--text-secondary); margin-bottom: 8px; }
+    .doc-list { margin: 6px 0 10px 0; padding-left: 18px; color: var(--text-secondary); }
+    .doc-list li { margin-bottom: 4px; }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 5px;
+      border-left: 4px solid var(--primary);
+      background: var(--primary-soft);
+      margin: 10px 0;
+      break-inside: avoid;
+    }
+    .callout-title { font-weight: 700; font-size: 9.5pt; margin-bottom: 3px; color: var(--text); }
+    .callout-body { font-size: 9.2pt; color: var(--text-secondary); margin: 0; }
+
+    table.doc-table { width: 100%; border-collapse: collapse; margin: 10px 0 14px 0; font-size: 9pt; }
+    table.doc-table thead { display: table-header-group; }
+    table.doc-table tfoot { display: table-row-group; }
+    table.doc-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.doc-table th { background: var(--primary); color: #ffffff; font-weight: 600; text-align: left; padding: 7px 10px; border: 1px solid var(--primary); }
+    table.doc-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+    table.doc-table tbody tr:nth-child(even) { background: var(--surface); }
+    table.doc-table tfoot td { font-weight: 700; background: var(--primary-soft); color: var(--text); border-top: 2px solid var(--primary); }
+
+    .text-right { text-align: right !important; }
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+
+    .signatures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-top: 24px; break-inside: avoid; }
+    .signature-box { padding-top: 28px; border-bottom: 1px solid var(--text-secondary); margin-bottom: 6px; }
+    .signature-name { font-weight: 700; font-size: 9.5pt; color: var(--text); }
+    .signature-role { font-size: 8.5pt; color: var(--muted); }
+
+    .page-break-before { page-break-before: always; break-before: page; }
+    .avoid-break { page-break-inside: avoid; break-inside: avoid; }
+  </style>
+  <%
+    const themeVars = [];
+    if (locals.theme?.primaryColor) themeVars.push(`--primary: ${locals.theme.primaryColor};`);
+    if (locals.theme?.primarySoftColor) themeVars.push(`--primary-soft: ${locals.theme.primarySoftColor};`);
+    if (locals.theme?.accentColor) themeVars.push(`--accent: ${locals.theme.accentColor};`);
+    if (locals.theme?.fontFamily) themeVars.push(`--font-family: ${locals.theme.fontFamily};`);
+    const dynamicCss = [
+      themeVars.length ? `:root { ${themeVars.join(' ')} }` : '',
+      locals.customCss || '',
+    ].filter(Boolean).join('\n');
+  %>
+  <% if (dynamicCss) { %><%- `<style>\n${dynamicCss}\n</style>` %><% } %>
+</head>
+<body>
+  <div class="th-page-shell">
+    <% if (!locals.hideHeader) { %>
+      <%- include('./header') %>
+    <% } %>
+
+    <main class="th-main">
+      <%- body %>
+    </main>
+
+    <% if (!locals.hideFooter) { %>
+      <%- include('./footer') %>
+    <% } %>
+  </div>
+</body>
+</html>

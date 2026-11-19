@@ -1,0 +1,32 @@
+{
+  "payPeriod": "November 2026",
+  "payDate": "2026-11-30",
+  "currency": "USD",
+  "company": {
+    "name": "Work Sphere Systems Pvt. Ltd.",
+    "address": "Tower B, Cyber Gateway, Hyderabad, TS 500081"
+  },
+  "employee": {
+    "name": "Siddharth Verma",
+    "id": "EMP-1084",
+    "designation": "Software Engineer II",
+    "department": "Core Platform",
+    "bankAccount": "XXXX-XXXX-4921"
+  },
+  "attendance": {
+    "paidDays": 30,
+    "lopDays": 0
+  },
+  "earnings": [
+    { "label": "Basic Salary", "amount": 5200 },
+    { "label": "House Rent Allowance", "amount": 1800 },
+    { "label": "Special Allowance", "amount": 916.67 }
+  ],
+  "deductions": [
+    { "label": "Income Tax (TDS)", "amount": 1120 },
+    { "label": "Provident Fund / 401k", "amount": 450 },
+    { "label": "Health Insurance", "amount": 145 }
+  ],
+  "netPayInWords": "Six Thousand Two Hundred One Dollars and Sixty-Seven Cents Only",
+  "note": "This is a system-generated payslip and does not require a physical signature."
+}

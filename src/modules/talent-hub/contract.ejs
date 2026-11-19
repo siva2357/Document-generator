@@ -1,0 +1,115 @@
+<%
+  const _parties = Array.isArray(locals.parties) ? locals.parties : [];
+  const _clauses = Array.isArray(locals.clauses) ? locals.clauses : [];
+  const _signatures = Array.isArray(locals.signatures) ? locals.signatures : [];
+%>
+<style>
+  .parties-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .party-card {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+  .party-role {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .party-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .party-details {
+    font-size: 8.8pt;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .clause-block {
+    margin-bottom: 14px;
+    break-inside: avoid;
+  }
+  .clause-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+</style>
+
+<section class="doc-title-block">
+  <h1 class="doc-title"><%= locals.title || 'Service Contract Agreement' %></h1>
+  <% if (locals.subtitle) { %>
+    <p class="doc-subtitle"><%= locals.subtitle %></p>
+  <% } %>
+</section>
+
+<% if (_parties.length > 0) { %>
+  <div class="parties-grid avoid-break">
+    <% _parties.forEach((party) => { %>
+      <div class="party-card">
+        <div class="party-role"><%= party.role %></div>
+        <div class="party-name"><%= party.name %></div>
+        <div class="party-details">
+          <% if (party.address) { %><div><%= party.address %></div><% } %>
+          <% if (party.email) { %><div><%= party.email %></div><% } %>
+          <% if (party.taxId) { %><div>ID: <%= party.taxId %></div><% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<% if (locals.summary) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Scope &amp; Recitals</h2>
+    <p><%- helpers.nl2br(locals.summary) %></p>
+  </section>
+<% } %>
+
+<% if (locals.commercialTerms && Array.isArray(locals.commercialTerms) && locals.commercialTerms.length > 0) { %>
+  <section class="meta-grid avoid-break">
+    <% locals.commercialTerms.forEach((term) => { %>
+      <div>
+        <div class="meta-item-label"><%= term.label %></div>
+        <div class="meta-item-value"><%= term.value %></div>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
+<% if (_clauses.length > 0) { %>
+  <section class="doc-section">
+    <h2 class="section-heading">Terms &amp; Conditions</h2>
+    <% _clauses.forEach((clause, idx) => { %>
+      <div class="clause-block">
+        <div class="clause-title"><%= idx + 1 %>. <%= clause.title %></div>
+        <p><%- helpers.nl2br(clause.body || '') %></p>
+      </div>
+    <% }) %>
+  </section>
+<% } %>
+
+<% if (_signatures.length > 0) { %>
+  <section class="signatures-grid">
+    <% _signatures.forEach((sig) => { %>
+      <div>
+        <div class="signature-box"></div>
+        <div class="signature-name"><%= sig.name || '' %></div>
+        <% if (sig.role) { %><div class="signature-role"><%= sig.role %></div><% } %>
+        <% if (sig.organization) { %><div class="signature-role"><%= sig.organization %></div><% } %>
+        <% if (sig.date) { %><div class="signature-role">Date: <%= helpers.formatDate(sig.date) %></div><% } %>
+      </div>
+    <% }) %>
+  </section>
+<% } %>

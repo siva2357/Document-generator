@@ -1,0 +1,109 @@
+<%
+  const _currency = locals.currency || 'USD';
+  const _earnings = Array.isArray(locals.earnings) ? locals.earnings : [];
+  const _deductions = Array.isArray(locals.deductions) ? locals.deductions : [];
+  const _grossPay = locals.grossPay !== undefined
+    ? Number(locals.grossPay)
+    : _earnings.reduce((sum, e) => sum + Number(e.amount || 0), 0);
+  const _totalDeductions = locals.totalDeductions !== undefined
+    ? Number(locals.totalDeductions)
+    : _deductions.reduce((sum, d) => sum + Number(d.amount || 0), 0);
+  const _netPay = locals.netPay !== undefined ? Number(locals.netPay) : _grossPay - _totalDeductions;
+  const _rowCount = Math.max(_earnings.length, _deductions.length);
+%>
+<style>
+  .net-pay-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--primary);
+    color: #ffffff;
+    border-radius: 6px;
+    margin-top: 16px;
+    break-inside: avoid;
+  }
+  .net-pay-label {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.9;
+  }
+  .net-pay-value {
+    font-size: 18pt;
+    font-weight: 700;
+  }
+</style>
+
+<section class="meta-grid avoid-break">
+  <div>
+    <div class="meta-item-label">Employee Name</div>
+    <div class="meta-item-value"><%= locals.employee?.name || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Employee ID</div>
+    <div class="meta-item-value"><%= locals.employee?.id || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Designation</div>
+    <div class="meta-item-value"><%= locals.employee?.designation || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Department</div>
+    <div class="meta-item-value"><%= locals.employee?.department || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Bank Account</div>
+    <div class="meta-item-value"><%= locals.employee?.bankAccount || '' %></div>
+  </div>
+  <div>
+    <div class="meta-item-label">Paid Days / LOP</div>
+    <div class="meta-item-value"><%= locals.attendance?.paidDays ?? 30 %> / <%= locals.attendance?.lopDays ?? 0 %></div>
+  </div>
+</section>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Earnings</th>
+      <th class="text-right">Amount</th>
+      <th>Deductions</th>
+      <th class="text-right">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i = 0; i < _rowCount; i++) { %>
+      <% const earn = _earnings[i]; const ded = _deductions[i]; %>
+      <tr>
+        <td><%= earn ? earn.label : '' %></td>
+        <td class="text-right"><%= earn ? helpers.formatCurrency(earn.amount, _currency) : '' %></td>
+        <td><%= ded ? ded.label : '' %></td>
+        <td class="text-right"><%= ded ? helpers.formatCurrency(ded.amount, _currency) : '' %></td>
+      </tr>
+    <% } %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Gross Earnings</td>
+      <td class="text-right"><%= helpers.formatCurrency(_grossPay, _currency) %></td>
+      <td>Total Deductions</td>
+      <td class="text-right"><%= helpers.formatCurrency(_totalDeductions, _currency) %></td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="net-pay-banner">
+  <div>
+    <div class="net-pay-label">Net Payable Amount</div>
+    <% if (locals.netPayInWords) { %>
+      <div style="font-size: 8.8pt; opacity: 0.9; margin-top: 2px;"><%= locals.netPayInWords %></div>
+    <% } %>
+  </div>
+  <div class="net-pay-value"><%= helpers.formatCurrency(_netPay, _currency) %></div>
+</div>
+
+<% if (locals.note) { %>
+  <p style="font-size: 8.5pt; color: var(--muted); margin-top: 16px;">
+    <%- helpers.nl2br(locals.note) %>
+  </p>
+<% } %>

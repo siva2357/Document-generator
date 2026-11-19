@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Work Sphere Document' %></title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-soft: #f0fdfa;
+      --accent: #14b8a6;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --surface: #f8fafc;
+      --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      font-family: var(--font-family);
+      font-size: 10pt;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    .ws-page-shell {
+      min-height: 258mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ws-main {
+      flex: 1;
+    }
+
+    /* Work Sphere Header */
+    .ws-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      background: var(--primary-soft);
+      border-left: 5px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .ws-brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ws-logo {
+      max-height: 40px;
+      max-width: 140px;
+      object-fit: contain;
+    }
+
+    .ws-brand-name {
+      font-size: 14.5pt;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .ws-brand-meta {
+      font-size: 8.4pt;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .ws-header-right {
+      text-align: right;
+    }
+
+    .ws-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: #ffffff;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+
+    .ws-ref-meta {
+      font-size: 8.5pt;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Work Sphere Footer */
+    .ws-footer {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 8pt;
+      color: var(--muted);
+      break-inside: avoid;
+    }
+
+    .ws-footer strong { color: var(--primary); }
+    .ws-footer-right { text-align: right; }
+
+    /* Shared Content Blocks */
+    .doc-title-block { margin-bottom: 16px; }
+    .doc-title { font-size: 16.5pt; font-weight: 700; color: var(--text); line-height: 1.25; margin-bottom: 4px; }
+    .doc-subtitle { font-size: 10pt; color: var(--muted); margin-bottom: 0; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 14px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .meta-item-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 2px; }
+    .meta-item-value { font-size: 9.5pt; font-weight: 600; color: var(--text); }
+
+    .doc-section { margin-bottom: 12px; }
+    .section-heading {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: var(--primary);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .doc-section p { color: var(--text-secondary); margin-bottom: 8px; }
+    .doc-list { margin: 6px 0 10px 0; padding-left: 18px; color: var(--text-secondary); }
+    .doc-list li { margin-bottom: 4px; }
+
+    table.doc-table { width: 100%; border-collapse: collapse; margin: 10px 0 14px 0; font-size: 9pt; }
+    table.doc-table thead { display: table-header-group; }
+    table.doc-table tfoot { display: table-row-group; }
+    table.doc-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.doc-table th { background: var(--primary); color: #ffffff; font-weight: 600; text-align: left; padding: 7px 10px; border: 1px solid var(--primary); }
+    table.doc-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+    table.doc-table tbody tr:nth-child(even) { background: var(--surface); }
+    table.doc-table tfoot td { font-weight: 700; background: var(--primary-soft); color: var(--text); border-top: 2px solid var(--primary); }
+
+    .text-right { text-align: right !important; }
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+
+    .signatures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-top: 24px; break-inside: avoid; }
+    .signature-box { padding-top: 28px; border-bottom: 1px solid var(--text-secondary); margin-bottom: 6px; }
+    .signature-name { font-weight: 700; font-size: 9.5pt; color: var(--text); }
+    .signature-role { font-size: 8.5pt; color: var(--muted); }
+
+    .page-break-before { page-break-before: always; break-before: page; }
+    .avoid-break { page-break-inside: avoid; break-inside: avoid; }
+  </style>
+  <%
+    const themeVars = [];
+    if (locals.theme?.primaryColor) themeVars.push(`--primary: ${locals.theme.primaryColor};`);
+    if (locals.theme?.primarySoftColor) themeVars.push(`--primary-soft: ${locals.theme.primarySoftColor};`);
+    if (locals.theme?.accentColor) themeVars.push(`--accent: ${locals.theme.accentColor};`);
+    if (locals.theme?.fontFamily) themeVars.push(`--font-family: ${locals.theme.fontFamily};`);
+    const dynamicCss = [
+      themeVars.length ? `:root { ${themeVars.join(' ')} }` : '',
+      locals.customCss || '',
+    ].filter(Boolean).join('\n');
+  %>
+  <% if (dynamicCss) { %><%- `<style>\n${dynamicCss}\n</style>` %><% } %>
+</head>
+<body>
+  <div class="ws-page-shell">
+    <% if (!locals.hideHeader) { %>
+      <%- include('./header') %>
+    <% } %>
+
+    <main class="ws-main">
+      <%- body %>
+    </main>
+
+    <% if (!locals.hideFooter) { %>
+      <%- include('./footer') %>
+    <% } %>
+  </div>
+</body>
+</html>

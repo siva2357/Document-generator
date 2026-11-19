@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'Course Hub Document' %></title>
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --primary-soft: #f5f3ff;
+      --accent: #8b5cf6;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --surface: #f8fafc;
+      --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      font-family: var(--font-family);
+      font-size: 10pt;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+
+    .ch-page-shell {
+      min-height: 260mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ch-main {
+      flex: 1;
+    }
+
+    /* Course Hub Header */
+    .ch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .ch-brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ch-logo {
+      max-height: 42px;
+      max-width: 140px;
+      object-fit: contain;
+    }
+
+    .ch-brand-name {
+      font-size: 15.5pt;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 3px;
+    }
+
+    .ch-brand-meta {
+      font-size: 8.5pt;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .ch-header-right {
+      text-align: right;
+    }
+
+    .ch-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 8.5pt;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-soft);
+      border: 1px solid #ddd6fe;
+      border-radius: 20px;
+      margin-bottom: 6px;
+    }
+
+    .ch-ref-meta {
+      font-size: 8.6pt;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .ch-ref-meta strong { color: var(--text-secondary); }
+
+    /* Course Hub Footer */
+    .ch-footer {
+      margin-top: 24px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 8pt;
+      color: var(--muted);
+      break-inside: avoid;
+    }
+
+    .ch-footer strong { color: var(--primary); }
+    .ch-footer-right { text-align: right; }
+
+    /* Shared Content Blocks */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 14px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 18px;
+    }
+    .meta-item-label { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 2px; }
+    .meta-item-value { font-size: 9.5pt; font-weight: 600; color: var(--text); }
+
+    .callout {
+      padding: 10px 14px;
+      border-radius: 5px;
+      border-left: 4px solid var(--primary);
+      background: var(--primary-soft);
+      margin: 10px 0;
+      break-inside: avoid;
+    }
+    .callout-title { font-weight: 700; font-size: 9.5pt; margin-bottom: 3px; color: var(--text); }
+    .callout-body { font-size: 9.2pt; color: var(--text-secondary); margin: 0; }
+
+    table.doc-table { width: 100%; border-collapse: collapse; margin: 10px 0 14px 0; font-size: 9pt; }
+    table.doc-table thead { display: table-header-group; }
+    table.doc-table tfoot { display: table-row-group; }
+    table.doc-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.doc-table th { background: var(--primary); color: #ffffff; font-weight: 600; text-align: left; padding: 7px 10px; border: 1px solid var(--primary); }
+    table.doc-table td { padding: 7px 10px; border: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+    table.doc-table tbody tr:nth-child(even) { background: var(--surface); }
+
+    .text-right { text-align: right !important; }
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+
+    .page-break-before { page-break-before: always; break-before: page; }
+    .avoid-break { page-break-inside: avoid; break-inside: avoid; }
+  </style>
+  <%
+    const themeVars = [];
+    if (locals.theme?.primaryColor) themeVars.push(`--primary: ${locals.theme.primaryColor};`);
+    if (locals.theme?.primarySoftColor) themeVars.push(`--primary-soft: ${locals.theme.primarySoftColor};`);
+    if (locals.theme?.accentColor) themeVars.push(`--accent: ${locals.theme.accentColor};`);
+    if (locals.theme?.fontFamily) themeVars.push(`--font-family: ${locals.theme.fontFamily};`);
+    const dynamicCss = [
+      themeVars.length ? `:root { ${themeVars.join(' ')} }` : '',
+      locals.customCss || '',
+    ].filter(Boolean).join('\n');
+  %>
+  <% if (dynamicCss) { %><%- `<style>\n${dynamicCss}\n</style>` %><% } %>
+</head>
+<body>
+  <div class="ch-page-shell">
+    <% if (!locals.hideHeader) { %>
+      <%- include('./header') %>
+    <% } %>
+
+    <main class="ch-main">
+      <%- body %>
+    </main>
+
+    <% if (!locals.hideFooter) { %>
+      <%- include('./footer') %>
+    <% } %>
+  </div>
+</body>
+</html>

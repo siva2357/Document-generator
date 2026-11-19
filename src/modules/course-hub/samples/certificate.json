@@ -1,0 +1,15 @@
+{
+  "academyName": "Course Hub Academy",
+  "title": "Certificate of Completion",
+  "recipientName": "Aarav Patel",
+  "statement": "For demonstrating excellence and successfully completing all modules, hands-on labs, and the capstone assessment in",
+  "courseTitle": "Full Stack JavaScript & Cloud Engineering",
+  "completionDate": "2026-11-19",
+  "duration": "16 Weeks (180 Hours)",
+  "grade": "Distinction (94%)",
+  "certificateId": "CH-CERT-2026-8821",
+  "signatures": [
+    { "name": "Meera Iyer", "role": "Head of Curriculum" },
+    { "name": "Dr. Rajesh Nair", "role": "Program Director" }
+  ]
+}

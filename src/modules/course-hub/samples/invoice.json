@@ -1,0 +1,26 @@
+{
+  "invoiceNumber": "CH-INV-2026-441",
+  "issueDate": "2026-11-19",
+  "paymentStatus": "Paid",
+  "currency": "USD",
+  "academy": {
+    "name": "Course Hub Academy",
+    "address": "100 Learning Plaza, Bengaluru, KA 560001",
+    "email": "billing@coursehub.example"
+  },
+  "learner": {
+    "name": "Aarav Patel",
+    "id": "LRN-2026-8821",
+    "email": "aarav.patel@example.com"
+  },
+  "cohort": "Fall 2026 — Batch B",
+  "paymentMethod": "Credit Card (Visa **** 4242)",
+  "transactionId": "TXN-99482710",
+  "items": [
+    { "description": "Full Stack JavaScript Bootcamp", "notes": "16-week live instructor-led cohort", "qty": 1, "rate": 1200 },
+    { "description": "Capstone Project Mentorship & Exam Fee", "notes": "Includes verified certificate", "qty": 1, "rate": 150 }
+  ],
+  "discount": 150,
+  "taxRate": 5,
+  "notes": "Thank you for enrolling with Course Hub Academy! Your course portal access is active immediately."
+}
